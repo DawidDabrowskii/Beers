@@ -13,25 +13,18 @@ const BeersList = () => {
     getBeersPage(page).then(data => setBeers(data));
   }, [page]);
 
-  const prevPage = () => {
-    setPage(page - 1);
-  };
-  const nextPage = () => {
-    setPage(page + 1);
-  };
-
   if (beers.length < 1) return <Spinner />;
 
   return (
     <div className=' flex flex-col justify-center gap-4 text-white items-center max-w-[80%] mx-auto pt-6'>
       <HeroTitle title='Beers' />
-      <Pagination prevPageFn={prevPage} nextPageFn={nextPage} page={page} />
+      <Pagination page={page} setPage={setPage} />
       <ul className='grid  lg:grid-cols-2 xl:grid-cols-3 gap-24 '>
         {beers.map(beer => (
           <SingleBeerCard key={beer.id} {...beer} />
         ))}
       </ul>
-      <Pagination prevPageFn={prevPage} nextPageFn={nextPage} page={page} />
+      <Pagination page={page} setPage={setPage} />
     </div>
   );
 };

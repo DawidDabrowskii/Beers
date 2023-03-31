@@ -11,3 +11,5 @@ export const Spinner = ({ title = 'Loading...' }) => (
     <h3 className='text-3xl text-[#DCCA87]'>{title}</h3>
   </div>
 );
+
+export const LastPage = 28;

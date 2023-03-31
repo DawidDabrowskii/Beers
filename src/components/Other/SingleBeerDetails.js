@@ -51,8 +51,8 @@ const SingleBeerDetails = () => {
           <div className='flex flex-col sm:flex-row gap-8 justify-center pl-4'>
             <ul className='w-[300px]'>
               <p className='text-2xl font-bold pb-4'>Hops:</p>
-              {hops.map(hop => (
-                <li className='pr-4'>
+              {hops.map((hop, index) => (
+                <li key={index + 1} className='pr-4'>
                   <p>{hop.name}</p>
                   <div className='flex gap-6'>
                     <p className='font-bold'>
