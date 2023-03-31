@@ -1,4 +1,6 @@
 import { getRandomBeer } from '../../api/randomBeerApi';
+import { motion } from 'framer-motion';
+import { fadeIn, staggerContainer } from '../../utils/motion';
 import { useEffect, useState } from 'react';
 import { Spinner } from '../../constants';
 
@@ -19,14 +21,20 @@ const RandomBeer = () => {
 
   return (
     <main className='flex flex-col justify-center items-center w-full gap-8'>
-      <div className='mt-4 text-3xl'>
-        <button
+      <motion.div
+        variants={staggerContainer()}
+        initial='hidden'
+        whileInView='show'
+        viewport={{ once: false, amount: 0.25 }}
+        className='mt-8 text-3xl'>
+        <motion.button
+          variants={fadeIn('tween', 0.25, 1)}
           onClick={handleNumber}
-          className='border-2 p-4 rounded-xl border-yellow-700 hover:bg-yellow-800 hover:text-white'>
+          className='bg-[#DCCA87]  rounded italic hover:scale-105 duration-300 text-black p-4'>
           Next random beer
-        </button>
-      </div>
-      <div className=' text-slate-100 shadow-xl p-4 bg-beer rounded-lg flex flex-col lg:flex-row w-full '>
+        </motion.button>
+      </motion.div>
+      <div className=' text-slate-100 p-4 bg-beer rounded-lg flex flex-col lg:flex-row w-full shadow-top z-10'>
         <div className='flex flex-col justify-center items-center rounded-lg  md:flex-row  bg-gray-200 '>
           {randomBeer.image_url !== null ? (
             <img
@@ -35,7 +43,7 @@ const RandomBeer = () => {
               className='object-contain min-w-[300px] w-48 rounded-t-lg h-[640px] md:rounded-none md:rounded-l-lg'
             />
           ) : (
-            <h3 className='text-3xl py-36 h-full text-center text-black min-w-[300px]'>
+            <h3 className='text-3xl py-36 h-full text-center  text-black min-w-[300px]'>
               No current photo 🍻
             </h3>
           )}
@@ -58,8 +66,8 @@ const RandomBeer = () => {
           <div className='flex flex-col sm:flex-row gap-8 justify-center pl-4'>
             <ul className='w-[300px]'>
               <p className='text-2xl font-bold pb-4'>Hops:</p>
-              {hops.map(hop => (
-                <li className='pr-4'>
+              {hops.map((hop, index) => (
+                <li key={index + 1} className='pr-4'>
                   <p>{hop.name}</p>
                   <div className='flex gap-6'>
                     <p className='font-bold'>
@@ -80,8 +88,8 @@ const RandomBeer = () => {
             </ul>
             <ul>
               <p className='text-2xl font-bold pb-4'>Malt:</p>
-              {malt.map(malt => (
-                <li className='pr-4'>
+              {malt.map((malt, index) => (
+                <li key={index - 1} className='pr-4'>
                   <p className='text-lg font-bold'>{malt.name}</p>
                   <div className='flex gap-6'>
                     <p className='font-bold'>

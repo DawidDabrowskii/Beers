@@ -1,19 +1,16 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getSingleBeer } from '../../api/singleBeerApi';
+import GoBackButton from '../Common/GoBackButton.js';
 import { Spinner } from '../../constants';
-import { Link } from 'react-router-dom';
 
 const SingleBeerDetails = () => {
   const { beerId } = useParams();
   const [beerDetails, setBeerDetails] = useState();
-  console.log(beerId);
 
   useEffect(() => {
     getSingleBeer(beerId).then(data => setBeerDetails(...data));
   }, [beerId]);
-
-  console.log(beerDetails);
 
   if (!beerDetails) return <Spinner />;
 
@@ -21,14 +18,8 @@ const SingleBeerDetails = () => {
 
   return (
     <main className='flex flex-col justify-center items-center w-full gap-8'>
-      <div className='mt-12 text-3xl'>
-        <Link
-          to='/'
-          className='border-2 p-4 rounded-xl hover:bg-yellow-800 hover:text-white'>
-          Go back
-        </Link>
-      </div>
-      <div className=' text-slate-100 shadow-xl p-4 bg-beer rounded-lg flex flex-col lg:flex-row w-full '>
+      <GoBackButton />
+      <div className=' text-slate-100 shadow-xl p-4 bg-beer rounded-lg flex flex-col lg:flex-row w-full shadow-top'>
         <div className='flex flex-col justify-center items-center rounded-lg  md:flex-row  bg-gray-200 '>
           {beerDetails.image_url !== null ? (
             <img
@@ -83,7 +74,7 @@ const SingleBeerDetails = () => {
             <ul>
               <p className='text-2xl font-bold pb-4'>Malt:</p>
               {malt.map(malt => (
-                <li className='pr-4'>
+                <li key={malt.name} className='pr-4'>
                   <p className='text-lg font-bold'>{malt.name}</p>
                   <div className='flex gap-6'>
                     <p className='font-bold'>
